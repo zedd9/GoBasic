@@ -3,11 +3,15 @@ package main
 import "fmt"
 
 func main() {
-	var a int
-	var b int
+	a := 9
+	b := 4
 
-	a = 3
-	b = 4
-
-	fmt.Println(a + b)
+	fmt.Printf("a=%v b=%v\n", a, b)
+	fmt.Printf("a&b = %v\n", a&b)
+	fmt.Printf("a|b = %v\n", a|b)
+	fmt.Printf("a^b = %v\n", a^b)
+	fmt.Printf("a%%b = %v\n", a%b)
+	fmt.Printf("a&^a = %v\n", a&^a)
+	fmt.Printf("a<<1 = %v\n", a<<1)
+	fmt.Printf("a>>1 = %v\n", a>>1)
 }
