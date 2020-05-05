@@ -2,12 +2,30 @@ package main
 
 import "fmt"
 
-func add(x int, y int) int {
-	return x + y
+func main() {
+	s := sum(10, 0)
+	fmt.Println(s)
+
+	rst := f(10)
+	fmt.Println(rst)
 }
 
-func main() {
-	for i := 0; i < 10; i++ {
-		fmt.Printf("%d + %d = %d\n", i, i+2, add(i, i+2))
+func sum(x int, s int) int {
+	if x == 0 {
+		return s
 	}
+
+	s += x
+	return sum(x-1, s)
+}
+
+func f(x int) int {
+	if x == 0 {
+		return 1
+	}
+	if x == 1 {
+		return 1
+	}
+
+	return f(x-1) + f(x-2)
 }
