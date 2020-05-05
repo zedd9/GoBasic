@@ -3,16 +3,11 @@ package main
 import "fmt"
 
 func main() {
-	s := ("Hello 월드")
+	arr := [5]int{1, 2, 3, 4, 5}
 
-	fmt.Printf("len(s) = %d\n", len(s))
-	for i := 0; i < len(s); i++ {
-		fmt.Print(s[i], ", ")
+	for i := 0; i < len(arr)/2; i++ {
+		arr[i], arr[len(arr)-1-i] = arr[len(arr)-1-i], arr[i]
 	}
 
-	s2 := []rune(s)
-	fmt.Printf("len(s2) = %d\n", len(s2))
-	for i := 0; i < len(s2); i++ {
-		fmt.Print(s2[i], ", ")
-	}
+	fmt.Println("arr:", arr)
 }
