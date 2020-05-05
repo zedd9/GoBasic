@@ -3,21 +3,13 @@ package main
 import "fmt"
 
 func main() {
+	for i := 2; i <= 9; i++ {
+		fmt.Printf("%d단\n", i)
 
-	for i := 0; i < 10; i++ {
-		fmt.Println(i)
-	}
+		for j := 1; j <= 9; j++ {
+			fmt.Printf("%d * %d = %d\n", i, j, i*j)
+		}
 
-	var i int
-	for {
-		if i == 5 {
-			i++
-			continue
-		}
-		if i == 6 {
-			break
-		}
-		fmt.Println(i)
-		i++
+		fmt.Println()
 	}
 }
