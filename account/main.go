@@ -9,25 +9,23 @@ import (
 
 type Account struct {
 	balance int
-	mutex   *sync.Mutex
+	//mutex   *sync.Mutex
 }
 
 func (a *Account) Widthdraw(val int) {
-	a.mutex.Lock()
+	//a.mutex.Lock()
 	a.balance -= val
-	a.mutex.Unlock()
+	//a.mutex.Unlock()
 }
 
 func (a *Account) Deposit(val int) {
-	a.mutex.Lock()
+	//a.mutex.Lock()
 	a.balance += val
-	a.mutex.Unlock()
+	//a.mutex.Unlock()
 }
 
 func (a *Account) Balance() int {
-	a.mutex.Lock()
 	balance := a.balance
-	a.mutex.Unlock()
 	return balance
 }
 
@@ -39,6 +37,8 @@ func Transfer(sender, receiver int, money int) {
 	accounts[sender].Widthdraw(money)
 	accounts[receiver].Deposit(money)
 	globalLock.Unlock()
+
+	fmt.Println("Transfer", sender, receiver, money)
 }
 
 func GetTotalBalance() int {
@@ -86,19 +86,26 @@ func PrintTotalBalance() {
 }
 
 func main() {
-	globalLock = &sync.Mutex{}
 	for i := 0; i < 20; i++ {
-		accounts = append(accounts, &Account{balance: 10000, mutex: &sync.Mutex{}})
+		accounts = append(accounts, &Account{balance: 10000})
+		//accounts = append(accounts, &Account{balance: 10000, mutex: &sync.Mutex{}})
 	}
 
-	PrintTotalBalance()
+	globalLock = &sync.Mutex{}
 
-	for i := 0; i < 10; i++ {
-		go GoTransfer()
-	}
+	go func() {
+		for {
+			Transfer(0, 1, 100)
+		}
+	}()
+
+	go func() {
+		for {
+			Transfer(1, 0, 100)
+		}
+	}()
 
 	for {
-		PrintTotalBalance()
 		time.Sleep(100 * time.Millisecond)
 	}
 }
